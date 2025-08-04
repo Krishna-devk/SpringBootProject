@@ -14,7 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.ProductDTO;
 import com.example.demo.service.ProductService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+
+@Tag(
+    name="Product Rest Api Controllers",
+    description="CRUD operations for the product REST API"
+)
 
 @RestController
 @RequestMapping("/api/products")

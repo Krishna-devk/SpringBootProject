@@ -41,7 +41,7 @@ public class ProductService {
     // get product by id
     public ProductDTO getProductDTOById(Long id){
         ProductEntity byId = productRepository.findById(id)
-        .orElseThrow(()->new ProductNotFoundException("No Product Corresponding to this id"));
+        .orElseThrow(()->new ProductNotFoundException("No Product having id: "+id+" exist"));
         return ProductMapper.toProductDTO(byId);
     }
 

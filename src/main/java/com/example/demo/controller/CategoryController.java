@@ -15,7 +15,14 @@ import com.example.demo.dto.CategoryDTO;
 import com.example.demo.exception.CategoryAlreadyExistException;
 import com.example.demo.service.CategoryService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+
+
+@Tag(
+    name="Category Rest Api Controllers",
+    description="CRUD operations for the category REST API"
+)
 
 @RequestMapping("/api/categories")
 @RestController

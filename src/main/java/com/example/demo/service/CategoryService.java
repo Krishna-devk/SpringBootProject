@@ -23,15 +23,15 @@ public class CategoryService {
         }
         CategoryEntity categoryEntity = CategoryMapper.toCategory(categoryDTO);
         CategoryEntity save = categoryRepository.save(categoryEntity);
-        return CategoryMapper.tCategoryDTO(save);
+        return CategoryMapper.toCategoryDTO(save);
     }
     public List<CategoryDTO> getAllCategoryDTO(){
-         return categoryRepository.findAll().stream().map(CategoryMapper::tCategoryDTO).toList();
+         return categoryRepository.findAll().stream().map(CategoryMapper::toCategoryDTO).toList();
     }
     public CategoryDTO getCategoryDTOById(Long id){
         CategoryEntity byId = categoryRepository.findById(id)
-                        .orElseThrow(()-> new CategoryNotFoundException("No Category Corresponding to the given id"));
-        return CategoryMapper.tCategoryDTO(byId);
+                        .orElseThrow(()-> new CategoryNotFoundException("No Category with id: "+id+" exist "));
+        return CategoryMapper.toCategoryDTO(byId);
     }
 
     public void deleteCategoryById(Long id){

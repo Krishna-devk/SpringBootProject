@@ -13,7 +13,7 @@ public class CategoryMapper {
         return categoryEntity;
     }
 
-    public static CategoryDTO tCategoryDTO(CategoryEntity categoryEntity){
+    public static CategoryDTO toCategoryDTO(CategoryEntity categoryEntity){
         if(categoryEntity == null) return null;
         CategoryDTO categoryDTO = new CategoryDTO();
         categoryDTO.setId(categoryEntity.getId());
