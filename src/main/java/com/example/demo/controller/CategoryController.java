@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.CategoryDTO;
+import com.example.demo.exception.CategoryAlreadyExistException;
 import com.example.demo.service.CategoryService;
 
 import lombok.AllArgsConstructor;
@@ -31,7 +32,8 @@ public class CategoryController {
     
     @PostMapping
     public ResponseEntity<?> createEntry(@RequestBody CategoryDTO categoryDTO){
-        return new ResponseEntity<>(categoryService.createCategory(categoryDTO),HttpStatus.CREATED);
+            CategoryDTO category = categoryService.createCategory(categoryDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(category);        
     }
 
     @GetMapping("/{id}")

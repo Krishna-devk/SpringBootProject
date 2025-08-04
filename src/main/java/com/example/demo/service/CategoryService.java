@@ -1,8 +1,12 @@
 package com.example.demo.service;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import com.example.demo.dto.CategoryDTO;
 import com.example.demo.entity.CategoryEntity;
+import com.example.demo.exception.CategoryAlreadyExistException;
+import com.example.demo.exception.CategoryNotFoundException;
 import com.example.demo.mapper.CategoryMapper;
 import com.example.demo.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
@@ -12,6 +16,11 @@ import lombok.AllArgsConstructor;
 public class CategoryService {
     private CategoryRepository categoryRepository;
     public CategoryDTO createCategory(CategoryDTO categoryDTO){
+
+        Optional<CategoryEntity> optionalCategory = categoryRepository.findByName(categoryDTO.getName());
+        if(optionalCategory.isPresent()){
+            throw new CategoryAlreadyExistException("Category "+ categoryDTO.getName()+ " already Exist");
+        }
         CategoryEntity categoryEntity = CategoryMapper.toCategory(categoryDTO);
         CategoryEntity save = categoryRepository.save(categoryEntity);
         return CategoryMapper.tCategoryDTO(save);
@@ -21,7 +30,7 @@ public class CategoryService {
     }
     public CategoryDTO getCategoryDTOById(Long id){
         CategoryEntity byId = categoryRepository.findById(id)
-                        .orElseThrow(()-> new RuntimeException("No Category Corresponding to the given id"));
+                        .orElseThrow(()-> new CategoryNotFoundException("No Category Corresponding to the given id"));
         return CategoryMapper.tCategoryDTO(byId);
     }
 
