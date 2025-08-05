@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.ProductDTO;
 import com.example.demo.service.ProductService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
@@ -27,25 +28,46 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ProductController {
     private ProductService productService;
-
+     @Operation(
+        summary = "Create a new Product",
+        description = "REST API to create a product"
+    )
     @PostMapping
     public ResponseEntity<?> createProduct(@RequestBody ProductDTO productDTO){
         return new ResponseEntity<>(productService.createProductDTO(productDTO),HttpStatus.CREATED);
     }
+
+    @Operation(
+        summary = "Fetch All Products",
+        description = "REST API to fetch all products"
+    )
+
     @GetMapping
     public ResponseEntity<?> getAllProductDTO(){
 
         return new ResponseEntity<>(productService.getAllProductDTO(),HttpStatus.FOUND);
     }
+    @Operation(
+        summary = "Fetch Product by id",
+        description = "REST API to fetch product info by using id"
+    )
     @GetMapping("/{id}")
     public ResponseEntity<?> getProductDTOById(@PathVariable Long id){
         return new ResponseEntity<>(productService.getProductDTOById(id),HttpStatus.FOUND);
     }
+    @Operation(
+        summary = "Update Product by id",
+        description = "REST API to update product by id"
+    )
     @PutMapping("/{id}")
     public ResponseEntity<?> updateProduct(@RequestBody ProductDTO productDTO,@PathVariable Long id){
         ProductDTO updateProductDTO = productService.updateProductDTO(id, productDTO);
         return new ResponseEntity<>(updateProductDTO,HttpStatus.ACCEPTED);
     }
+    @Operation(
+        summary = "Delete Product by id",
+        description = "REST API to delete product by id"
+    )
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id){
